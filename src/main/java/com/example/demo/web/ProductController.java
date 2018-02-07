@@ -19,8 +19,6 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-    @Autowired
-    JdbcTemplate jdbcTemplate;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView showFormmethod() {
@@ -51,6 +49,10 @@ public class ProductController {
         ModelAndView modelAndView = new ModelAndView("allproduct");
         return modelAndView;
     }
-
-
+    @PostMapping (value = "/deleteproduct/{id}")
+    public ModelAndView deletemethod(@PathVariable(value = "id") Integer id){
+        ModelAndView modelAndView = new ModelAndView("deleteproduct");
+        productService.deleteproduct(id);
+        return modelAndView;
+    }
 }

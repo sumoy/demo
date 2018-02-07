@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
     public void insertproduct(Product product){
-        String query = "Insert into Product_Information(Product_Name,Product_Description,Product_Origin,Gender,Product_Buying_Price,Product_Quantity,Product_Quality) values(?,?,?,?,?,?,?)";
+        String query = "INSERT INTO Product_Information(Product_Name,Product_Description,Product_Origin,Gender,Product_Buying_Price,Product_Quantity,Product_Quality) values(?,?,?,?,?,?,?)";
         jdbcTemplate.update(query,product.getName(),product.getDescription(),product.getOrigin(),product.getGender(),product.getBuyingprice(),product.getQuantity(),product.getQuality());
     }
 /**    public Product getproductbyid(Integer id){
@@ -22,5 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
         return product;
      }
 **/
-
+    public void deleteproduct(Integer id){
+        String query = "DELETE FROM Product_Information WHERE id = "+id+"";
+        jdbcTemplate.update(query);
+    }
 }

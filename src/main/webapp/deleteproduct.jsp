@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/productinfo.css" />
 	<title></title>
+	<h2>Row Deleted Successfully</h2>
 </head>
 <body>
 <sql:setDataSource var="db" driver="com.mysql.jdbc.Driver"
@@ -40,7 +41,7 @@ Select * from Product_Information;
 <td><c:out value="${table.Product_Buying_Price}"/></td>
 <td><c:out value="${table.Product_Quantity}"/></td>
 <td><c:out value="${table.Product_Quality}"/></td>
-<td><form:form method="POST" action="/product/deleteproduct/<c:out value="${table.id}"/>"><input type="submit" value="Delete" /></form:form></td>
+<td><a href="/product/deleteitem/"${table.id}"><input type="submit" value="Delete"/></a></td>
 </tr>
 </c:forEach>
 </table>
