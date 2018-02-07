@@ -24,6 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 **/
     public void deleteproduct(Integer id){
         String query = "DELETE FROM Product_Information WHERE id = "+id+"";
-        jdbcTemplate.update(query);
+        jdbcTemplate.execute(query);
     }
 }

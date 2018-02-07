@@ -41,7 +41,7 @@ Select * from Product_Information;
 <td><c:out value="${table.Product_Buying_Price}"/></td>
 <td><c:out value="${table.Product_Quantity}"/></td>
 <td><c:out value="${table.Product_Quality}"/></td>
-<td><a href="/product/deleteitem/"${table.id}"><input type="submit" value="Delete"/></a></td>
+<td><form method="POST" action="/product/deleteproduct/<c:out value="${table.id}"/>"><input type="submit" value="Delete" /></form></td>
 </tr>
 </c:forEach>
 </table>
