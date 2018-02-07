@@ -1,13 +1,14 @@
 package com.example.demo.web;
 
 
+import com.example.demo.Service.ProductService;
 import com.example.demo.dto.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -16,20 +17,40 @@ import javax.validation.Valid;
 @RequestMapping("/product")
 public class ProductController {
 
+    @Autowired
+    ProductService productService;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView showForm() {
+    public ModelAndView showFormmethod() {
         return new ModelAndView("add_product", "product", new Product());
     }
-
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String submit(@Valid @ModelAttribute("product")Product product,
-                         BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "error";
-        }
-        model.addAttribute("name", product.getName());
-        model.addAttribute("description", product.getDescription());
-        return "view_product";
+    public ModelAndView submitmethod(@Valid @ModelAttribute("product")Product product,
+                         BindingResult result) {
+            ModelAndView modelAndView = new ModelAndView("view_product");
+            productService.insertproduct(product);
+            return modelAndView;
     }
+/**    @RequestMapping(value = "/search" , method = RequestMethod.POST)
+    public ModelAndView searchmethod(@RequestParam ("id")Integer id){
+        productService.getproductbyid(id);
+        ModelAndView modelAndView = new ModelAndView("view_product");
+        return  modelAndView;
+    }
+**/
+    @PostMapping (value="/search")
+    public ModelAndView searchmethod(@RequestParam ("id") String id){
+        ModelAndView modelAndView = new ModelAndView("searchproduct");
+        modelAndView.addObject("product_id",""+id+"");
+        return modelAndView;
+    }
+    @GetMapping(value="/allproduct")
+    public ModelAndView allproduct(){
+        ModelAndView modelAndView = new ModelAndView("allproduct");
+        return modelAndView;
+    }
+
+
 }
